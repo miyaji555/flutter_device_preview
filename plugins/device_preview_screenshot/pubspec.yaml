@@ -9,6 +9,8 @@ environment:
 
 dependencies:
   device_preview: ^1.0.0
+#  device_preview:
+#    path: /Users/miyaji/AndroidStudioProjects/flutter_device_preview/device_preview
   flutter:
     sdk: flutter
   path: ^1.8.0
