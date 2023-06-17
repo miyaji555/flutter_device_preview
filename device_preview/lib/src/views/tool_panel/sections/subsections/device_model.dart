@@ -85,6 +85,9 @@ class _DeviceModelPickerState extends State<DeviceModelPicker>
           ..._allPlatforms.map(
             (e) => _PlatformModelPicker(
               platform: e,
+              onSelected: () {
+                setState(() {});
+              },
             ),
           ),
           CustomScrollView(
@@ -102,9 +105,11 @@ class _PlatformModelPicker extends StatelessWidget {
   const _PlatformModelPicker({
     Key? key,
     required this.platform,
+    required this.onSelected,
   }) : super(key: key);
 
   final TargetPlatform platform;
+  final Function onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +128,9 @@ class _PlatformModelPicker extends StatelessWidget {
     );
     final byDeviceType =
         groupBy<DeviceInfo, DeviceType>(devices, (d) => d.identifier.type);
+    final List<DeviceIdentifier> selectedDevices = context.select(
+      (DevicePreviewStore store) => store.selectedDevices,
+    );
     return ListView(
       children: [
         ...byDeviceType.entries
@@ -134,6 +142,8 @@ class _PlatformModelPicker extends StatelessWidget {
                 ...e.value.map(
                   (d) => DeviceTile(
                     info: d,
+                    selected: selectedDevices.contains(d.identifier),
+                    onSelected: onSelected,
                   ),
                 ),
               ],
@@ -184,15 +194,20 @@ class DeviceTile extends StatelessWidget {
   const DeviceTile({
     Key? key,
     required this.info,
+    this.selected = false,
+    required this.onSelected,
   }) : super(key: key);
 
   final DeviceInfo info;
+  final bool selected;
+  final Function onSelected;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(info.name),
       leading: DeviceTypeIcon(type: info.identifier.type),
+      trailing: selected ? const Icon(Icons.check) : null,
       subtitle: Text(
         '${info.screenSize.width}x${info.screenSize.height} @${info.pixelRatio}',
         style: const TextStyle(
@@ -202,6 +217,7 @@ class DeviceTile extends StatelessWidget {
       onTap: () {
         final state = context.read<DevicePreviewStore>();
         state.selectDevice(info.identifier);
+        onSelected();
       },
     );
   }
