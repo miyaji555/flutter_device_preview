@@ -29,6 +29,7 @@ class DevicePreviewStore extends ChangeNotifier {
   }
 
   final DeviceInfo defaultDevice;
+  final List<DeviceIdentifier> selectedDevices = [];
 
   DevicePreviewState _state = const DevicePreviewState.notInitialized();
 
@@ -235,6 +236,8 @@ extension DevicePreviewStateHelperExtensions on DevicePreviewStore {
 
   /// Select the current device.
   void selectDevice(DeviceIdentifier id) {
+    selectedDevices.add(id);
+    print(selectedDevices);
     data = data.copyWith(
       deviceIdentifier: id.toString(),
     );
