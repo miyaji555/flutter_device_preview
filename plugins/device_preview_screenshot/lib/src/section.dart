@@ -95,8 +95,7 @@ class _DevicePreviewScreenshotState extends State<DevicePreviewScreenshot> {
                     });
                     try {
                       for (var device
-                          in DevicePreview.availableDeviceIdentifiers(
-                              context)) {
+                          in DevicePreview.selectedDeviceIdentifiers(context)) {
                         DevicePreview.selectDevice(context, device);
                         await Future.delayed(const Duration(milliseconds: 500));
                         final result = await DevicePreview.screenshot(context);

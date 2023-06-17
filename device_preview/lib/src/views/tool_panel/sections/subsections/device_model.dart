@@ -217,6 +217,7 @@ class DeviceTile extends StatelessWidget {
       onTap: () {
         final state = context.read<DevicePreviewStore>();
         state.selectDevice(info.identifier);
+        state.changeSelectedDevices(info.identifier);
         onSelected();
       },
     );

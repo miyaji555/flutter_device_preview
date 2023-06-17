@@ -267,16 +267,13 @@ class DevicePreview extends StatefulWidget {
     return store.devices.map((info) => info.identifier).toList();
   }
 
-  // /// The list of selected locales.
-  // static List<DeviceIdentifier> selectedDeviceIdentifiers(
-  //   BuildContext context,
-  // ) {
-  //   final store = Provider.of<DevicePreviewStore>(context, listen: false);
-  //   return store.devices
-  //       .where((info) => info.isEnabled)
-  //       .map((info) => info.identifier)
-  //       .toList();
-  // }
+  /// The list of selected locales.
+  static List<DeviceIdentifier> selectedDeviceIdentifiers(
+    BuildContext context,
+  ) {
+    final store = Provider.of<DevicePreviewStore>(context, listen: false);
+    return store.selectedDevices;
+  }
 
   /// All available locales in the tool.
   static List<Locale> allLocales(BuildContext context) {

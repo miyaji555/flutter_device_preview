@@ -236,14 +236,13 @@ extension DevicePreviewStateHelperExtensions on DevicePreviewStore {
 
   /// Select the current device.
   void selectDevice(DeviceIdentifier id) {
-    _onSelected(id);
     data = data.copyWith(
       deviceIdentifier: id.toString(),
     );
   }
 
   //　選択されたデバイスを追加 or 削除
-  void _onSelected(DeviceIdentifier id) {
+  void changeSelectedDevices(DeviceIdentifier id) {
     selectedDevices.contains(id)
         ? selectedDevices.remove(id)
         : selectedDevices.add(id);
